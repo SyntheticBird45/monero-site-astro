@@ -32,12 +32,12 @@ const t = await useTranslations(lang!);
             {
                 tags.slice(0, -1).map((tag) => (
                     <>
-                        <a href={`/${lang}/blog/tags/${tag}.html`}>{tag}</a>,
+                        <a href={`/${lang}/blog/tags/${tag}`}>{tag}</a>,
                     </>
                 ))
             }
             {
-                tags.at(-1)? <a href={`/${lang}/blog/tags/${tags.at(-1)}.html`}>{tags.at(-1)}</a> : <></>
+                tags.at(-1)? <a href={`/${lang}/blog/tags/${tags.at(-1)}`}>{tags.at(-1)}</a> : <></>
             }
         </small>
     </p>

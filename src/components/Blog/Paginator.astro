@@ -1,0 +1,25 @@
+---
+interface Props {
+    /* Total number of pages */
+    total: number
+    /* Current page */
+    page: number
+}
+
+const { lang } = Astro.params;
+const { total, page } = Astro.props;
+---
+
+<div class="page-numbers"><p>        
+    {
+        Array.from({length: total-1}, (_, i) => i + 1).map(p => {
+            if(p==page) {
+                return <em>{p}</em>
+            } else if(p == 1) {
+                return <a href={`/${lang}/blog/`}>{p}</a>
+            } else {
+                return <a href={`/${lang}/blog/page/${p}`}>{p}</a>
+            }
+        })
+    }
+</p></div>

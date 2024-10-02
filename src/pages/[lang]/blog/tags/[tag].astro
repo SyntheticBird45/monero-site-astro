@@ -1,38 +1,41 @@
 ---
-// layout: custom
-// title: titles.blogbytag
-// meta_descr: meta_descr.blog
 import { availableLangs } from 'src/i18n/ui';
 import { useTranslations } from '../../../../i18n/utils';
 import { getCollection } from 'astro:content';
-import Base from 'src/layouts/Base.astro';
-import PostCard from '@components/Blog/PostCard.astro';
+import { sortByPopularity } from '@content/config';
 
-// Exporting static path for each available languages
+import Base from '@layouts/Base.astro';
+import BlogDetails from '@layouts/BlogDetails.astro';
+import PostCard from '@components/Blog/PostCard.astro';
+import TagTopBar from '@components/Blog/TagTopBar.astro';
+
+// Path for every blog tags
 export async function getStaticPaths() {
     
-    // Collect all blogs posts
-    const blogCollection = (await getCollection('blog'));
+    const blogPosts = await getCollection('blog');
     
-    // Collect all different tags
-    var allTags: string[] = [];
-    blogCollection.forEach((entry) => {
+    // Collect all tags and sort them by popularity
+    var collectedTags: string[] = [];
+    blogPosts.forEach((entry) => {
         const tags = entry.data.tag? [entry.data.tag] : entry.data.tags!;
         tags.forEach((tag: string) => {
-            if(!allTags.includes(tag)) {
-                allTags.push(tag)
-            }
+            collectedTags.push(tag)
         })
     });
+    const allTags = sortByPopularity(collectedTags);
+    const fourMostPopularTags = allTags.slice(0, 4); // This is the 4 most popular tags
     
-    // Create a static route for each tags for each languages.
-    const paths = Object.keys(availableLangs).map(lang => {
-        return allTags.map((tag) => {
-            return { params: { lang, tag } }
+    // Collect 5 latest blog post
+    const latestBlogPosts = blogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
+    
+    // Generate static paths
+    return allTags.map((tag) => {
+        
+        // Create a static route for each tags for each languages.
+        return Object.keys(availableLangs).map(lang => {
+            return { params: { lang, tag }, props: { latest: latestBlogPosts, tags: fourMostPopularTags} }
         });
-    });
-    
-    return paths.flat(1);
+    }).flat(1);
 }
 
 // i18n
@@ -51,54 +54,20 @@ const allBlogPosts = (await getCollection('blog')).filter((entry) => {
     meta_descr: "meta_descr.blog"
 }}
 >
-    <div class="blog">
-        <!-- Category selector: desktop -->
-        <div class="container full">
-            <div class="info-block blog-nav row">
-                <div class="col {% if page.name == 'index.html' %}checked{% endif %}"><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></div>
-                <div class="col"><a href={`/${lang}/blog/tags/urgent.html`}>{t('blog.urgent')}</a></div>
-                <div class="col"><a href={`/${lang}/blog/tags/releases.html`}>{t('blog.releases')}</a></div>
-                <div class="col"><a href={`/${lang}/blog/tags/community.html`}>{t('blog.community')}</a></div>
-                <div class="col"><a href={`/${lang}/blog/tags/dev%20diaries.html`}>{t('blog.meetinglogs')}</a></div>
-            </div>
-        </div>
-        <!-- End category selector: desktop -->
-        <!-- Category selector: mobile -->
-        <div class="container full">
-            <div class="info-block row center-xs" id="pick-platform">
-                <div class="mob dropdowndrop">
-                    <input id="filter" type="checkbox" name="category-filter"/>
-                    <label for="filter">{t('blog.filter')}</label>
-                    <ul id="menu">
-                        <li><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></li>
-                        <li><a href={`/${lang}/blog/tags/urgent.html`}>{t('blog.urgent')}</a></li>
-                        <li><a href={`/${lang}/blog/tags/releases.html`}>{t('blog.releases')}</a></li>
-                        <li><a href={`/${lang}/blog/tags/community.html`}>{t('blog.community')}</a></li>
-                        <li><a href={`/${lang}/blog/tags/dev%20diaries.html`}>{t('blog.meetinglogs')}</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End category selector: mobile -->
-    </div>
+    <!-- Post categories selection bar -->
+    <TagTopBar />
     
-    <div class="site-wrap">
-        <section class="container full">
-            <div class="row">
-                <!-- Full block -->
-                <div class="info-block">
-                    <div class="feed">
-                        <a href="/feed.xml" aria-label="Feed logo"><span class="feed-pic"></span></a>
-                        <h2>{t('blog.allposts')}</h2>
-                    </div>
-                    <!-- List of posts --->
-                    {allBlogPosts.map((post) => (
-                        <PostCard {...post}></PostCard>
-                    ))}
-                </div>
+    <!-- List of posts -->
+    <BlogDetails {...Astro.props}>
+        <div class="full">
+            <div class="feed">
+                <h2>{tag}</h2>
             </div>
-        </section>
-        <a href="#" class="arrow-up" aria-label={t('accessibility.arrowup')} title={t('accessibility.gotop')}><i></i></a>
-    </div>
+        </div>
+        <!-- List of posts --->
+        {allBlogPosts.map((post) => (
+            <PostCard {...post}></PostCard>
+        ))}
+    </BlogDetails>
 
 </Base>

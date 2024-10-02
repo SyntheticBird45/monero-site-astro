@@ -1,8 +1,7 @@
 ---
 import { availableLangs } from 'src/i18n/ui';
-import { useTranslations } from '../../../i18n/utils';
+import { useTranslations } from '../../../../i18n/utils';
 import { getCollection } from 'astro:content';
-import { chunkArray } from '@content/utils';
 
 import Base from '@layouts/Base.astro';
 import Paginator from '@components/Blog/Paginator.astro';
@@ -12,17 +11,29 @@ import TagTopBar from '@components/Blog/TagTopBar.astro';
 // Exporting static path for each available languages
 export async function getStaticPaths() {
     
+    // Chunkified the array of posts
+    function chunkArray(array: object[], chunkSize: number) {
+        const result = [];
+        for (let i = 0; i < array.length; i += chunkSize) {
+            const chunk = array.slice(i, i + chunkSize);
+            result.push(chunk);
+        }
+        return result;
+    }
+    
     // Collect all blog post sorted by date and make chunks of 10
     const allBlogPosts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     const chunkedBlogPosts = chunkArray(allBlogPosts, 10);
     const total = chunkedBlogPosts.length;
     
     return Object.keys(availableLangs).map(lang => {
-        return { params: { lang }, props: { posts: chunkedBlogPosts[0], total } };
+        return chunkedBlogPosts.map((value, index) => {
+            return { params: { lang, page: index }, props: { posts: value, total } };
+        })
     }).flat(1);
 }
 
-const { lang } = Astro.params;
+const { lang, page } = Astro.params;
 const { posts, total } = Astro.props;
 const t = await useTranslations(lang);
 ---
@@ -48,10 +59,8 @@ const t = await useTranslations(lang);
                     ))}
                 </div>
             </div>
-            
             <!-- Paginator -->
-            <Paginator page={1} total={total}/>
-            
+            <Paginator page={page} total={total}/>
         </section>
         <a href="#" class="arrow-up" aria-label={t('accessibility.arrowup')} title={t('accessibility.gotop')}><i></i></a>
     </div>

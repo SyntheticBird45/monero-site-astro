@@ -1125,7 +1125,7 @@ img.onion-mid {
 
 code {
     white-space: pre-wrap;
-    background-color: #fff1e8;
+    background-color: #fff1e8 !important;
     color: #2f6f9f;
     padding: 0.2rem;
     margin: 0 0.2rem;
@@ -1134,8 +1134,8 @@ code {
     line-height: 1.4rem;
 }
 
-pre.highlight {
-    background-color: #fff1e8;
+pre {
+    background-color: #fff1e8 !important;
     color: #2f6f9f;
     padding: 0.7rem;
     border-radius: 0.2rem;

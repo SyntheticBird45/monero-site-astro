@@ -17,9 +17,21 @@ const blogCollection = defineCollection({
         tag: z.string().optional(),
         tags: z.array(z.string()).optional(),
         
-        forum: z.string().optional()
+        forum: z.string().optional(),
+        
+        image: z.string().optional()
     })
 });
+
+export function sortByPopularity(arr: string[]) {
+    const countMap = {};
+    arr.forEach(tag => {
+        countMap[tag] = (countMap[tag] || 0) + 1;
+    });
+    const uniqueItems = Object.keys(countMap);
+    uniqueItems.sort((a, b) => countMap[b] - countMap[a]);
+    return uniqueItems;
+}
 
 /** Export our collections */
 export const collections = {

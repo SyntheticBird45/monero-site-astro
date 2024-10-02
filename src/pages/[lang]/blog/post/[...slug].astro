@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import { availableLangs } from 'src/i18n/ui';
+import { sortByPopularity } from '@content/config';
+
+import BlogPost from '@layouts/BlogPost.astro';
+
+// Path for every blog post
+export async function getStaticPaths() {
+    
+    const blogPosts = await getCollection('blog');
+    
+    // Collect all tags and sort them by popularity
+    var allTags: string[] = [];
+    blogPosts.forEach((entry) => {
+        const tags = entry.data.tag? [entry.data.tag] : entry.data.tags!;
+        tags.forEach((tag: string) => {
+            allTags.push(tag)
+        })
+    });
+    const fourTags = sortByPopularity(allTags).slice(0, 4);
+    
+    // Collect 5 latest blog post
+    const latestBlogPosts = blogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
+    return blogPosts.map((post) => {
+        
+        // Create a static route for each posts for each languages.
+        return Object.keys(availableLangs).map(lang => {
+            return { params: { lang, slug: post.slug }, props: { post, latest: latestBlogPosts, tags: fourTags} }
+        });
+    }).flat(1);
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogPost {...Astro.props}>
+    <Content />
+</BlogPost>

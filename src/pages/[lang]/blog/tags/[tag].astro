@@ -1,0 +1,104 @@
+---
+// layout: custom
+// title: titles.blogbytag
+// meta_descr: meta_descr.blog
+import { availableLangs } from 'src/i18n/ui';
+import { useTranslations } from '../../../../i18n/utils';
+import { getCollection } from 'astro:content';
+import Base from 'src/layouts/Base.astro';
+import PostCard from '@components/Blog/PostCard.astro';
+
+// Exporting static path for each available languages
+export async function getStaticPaths() {
+    
+    // Collect all blogs posts
+    const blogCollection = (await getCollection('blog'));
+    
+    // Collect all different tags
+    var allTags: string[] = [];
+    blogCollection.forEach((entry) => {
+        const tags = entry.data.tag? [entry.data.tag] : entry.data.tags!;
+        tags.forEach((tag: string) => {
+            if(!allTags.includes(tag)) {
+                allTags.push(tag)
+            }
+        })
+    });
+    
+    // Create a static route for each tags for each languages.
+    const paths = Object.keys(availableLangs).map(lang => {
+        return allTags.map((tag) => {
+            return { params: { lang, tag } }
+        });
+    });
+    
+    return paths.flat(1);
+}
+
+// i18n
+const { lang, tag } = Astro.params;
+const t = await useTranslations(lang!);
+
+// Sort all blog posts per date.
+const allBlogPosts = (await getCollection('blog')).filter((entry) => {
+    return entry.data.tag? (entry.data.tag == tag) : entry.data.tags!.includes(tag)
+}).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title={{ 
+    title: "titles.blogbytag", 
+    header_only: false,
+    meta_descr: "meta_descr.blog"
+}}
+>
+    <div class="blog">
+        <!-- Category selector: desktop -->
+        <div class="container full">
+            <div class="info-block blog-nav row">
+                <div class="col {% if page.name == 'index.html' %}checked{% endif %}"><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></div>
+                <div class="col"><a href={`/${lang}/blog/tags/urgent.html`}>{t('blog.urgent')}</a></div>
+                <div class="col"><a href={`/${lang}/blog/tags/releases.html`}>{t('blog.releases')}</a></div>
+                <div class="col"><a href={`/${lang}/blog/tags/community.html`}>{t('blog.community')}</a></div>
+                <div class="col"><a href={`/${lang}/blog/tags/dev%20diaries.html`}>{t('blog.meetinglogs')}</a></div>
+            </div>
+        </div>
+        <!-- End category selector: desktop -->
+        <!-- Category selector: mobile -->
+        <div class="container full">
+            <div class="info-block row center-xs" id="pick-platform">
+                <div class="mob dropdowndrop">
+                    <input id="filter" type="checkbox" name="category-filter"/>
+                    <label for="filter">{t('blog.filter')}</label>
+                    <ul id="menu">
+                        <li><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></li>
+                        <li><a href={`/${lang}/blog/tags/urgent.html`}>{t('blog.urgent')}</a></li>
+                        <li><a href={`/${lang}/blog/tags/releases.html`}>{t('blog.releases')}</a></li>
+                        <li><a href={`/${lang}/blog/tags/community.html`}>{t('blog.community')}</a></li>
+                        <li><a href={`/${lang}/blog/tags/dev%20diaries.html`}>{t('blog.meetinglogs')}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End category selector: mobile -->
+    </div>
+    
+    <div class="site-wrap">
+        <section class="container full">
+            <div class="row">
+                <!-- Full block -->
+                <div class="info-block">
+                    <div class="feed">
+                        <a href="/feed.xml" aria-label="Feed logo"><span class="feed-pic"></span></a>
+                        <h2>{t('blog.allposts')}</h2>
+                    </div>
+                    <!-- List of posts --->
+                    {allBlogPosts.map((post) => (
+                        <PostCard {...post}></PostCard>
+                    ))}
+                </div>
+            </div>
+        </section>
+        <a href="#" class="arrow-up" aria-label={t('accessibility.arrowup')} title={t('accessibility.gotop')}><i></i></a>
+    </div>
+
+</Base>

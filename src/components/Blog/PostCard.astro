@@ -1,0 +1,69 @@
+---
+// @ts-nocheck
+import { useTranslations } from 'src/i18n/utils';
+
+// interface Props {
+//     title: string,
+//     summary: string,
+//     date: Date,
+//     author: string,
+//     authors: string[],
+//     tags: string[],
+//     tag: string,
+//     slug?: string
+// }
+
+const { lang } = Astro.params;
+const post = Astro.props.data;
+const slug = Astro.props.slug;
+// We format tags or individual ones as an array regardless for ease of use.
+const tags = post.tags? post.tags : [post.tag];
+const t = await useTranslations(lang!);
+---
+<div class="post-lead">
+    <h3><a href={`/${lang}/blog/post/${slug}`}>{post.title}</a></h3>
+    <p>
+        {post.summary}
+    </p>
+    <p>
+        <small>
+            {`${t('blog.author')} ${post.author? post.author : post.authors} ${post.date? `| ${post.date.toDateString()}` : ''}`}<br>
+            Category:
+            {
+                tags.slice(0, -1).map((tag) => (
+                    <>
+                        <a href={`/${lang}/blog/tags/${tag}.html`}>{tag}</a>,
+                    </>
+                ))
+            }
+            {
+                tags.at(-1)? <a href={`/${lang}/blog/tags/${tags.at(-1)}.html`}>{tags.at(-1)}</a> : <></>
+            }
+        </small>
+    </p>
+</div>
+<!-- End full block -->
+<!-- {% if paginator.total_pages > 1 %} -->
+<!-- <div class="page-numbers"><p> -->
+<!-- {% if paginator.previous_page %} -->
+  <!-- <a href="{{ paginator.previous_page_path | replace: '//', '/' }}">&laquo; {t('blog.prev')}</a> -->
+<!-- {% else %} -->
+  <!-- <span>&laquo; Prev</span> -->
+<!-- {% endif %} -->
+<!--  -->
+<!-- {% for page in (1..paginator.total_pages) %} -->
+  <!-- {% if page == paginator.page %} -->
+    <!-- <em>{{ page }}</em> -->
+  <!-- {% elsif page == 1 %} -->
+    <!-- <a href={`/${lang}/blog`}>{{ page }}</a> -->
+  <!-- {% else %} -->
+    <!-- <a href="{{ site.paginate_path | prepend: '/' | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a> -->
+  <!-- {% endif %} -->
+<!-- {% endfor %} -->
+<!--  -->
+<!-- {% if paginator.next_page %} -->
+  <!-- <a href="{{ paginator.next_page_path | replace: '//', '/' }}">{t('blog.next')} &raquo;</a> -->
+<!-- {% else %} -->
+  <!-- <span>Next &raquo;</span> -->
+<!-- {% endif %} -->
+<!-- </p> -->

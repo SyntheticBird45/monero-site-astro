@@ -1,0 +1,28 @@
+---
+import Head from '@components/Head.astro';
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
+import '../styles/custom.css'
+
+import { useTranslations } from 'src/i18n/utils';
+
+const { title } = Astro.props;
+const { lang } = Astro.params;
+const t = await useTranslations(lang ? lang : 'en');
+---
+<!doctype html>
+<html lang={lang}>
+
+    <Head {...Astro.props}/>
+    
+    <body>
+        <div class="page-wrapper">
+            <Header {...Astro.props}/>
+            {title.header_only? <></> : <h1 class="text-center">{
+                title.title.includes('titles.')? t(title.title) : title.title
+            }</h1>}
+            <slot />
+            <Footer {...Astro.props}/>
+        </div>
+    </body>
+</html>

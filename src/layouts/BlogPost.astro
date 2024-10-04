@@ -9,10 +9,9 @@ const data = post.data;
 const t = await useTranslations(lang ? lang : 'en');
 ---
 
-<Base title={{ 
-    title: "titles.blogbytag", 
-    header_only: true,
-    meta_descr: "meta_descr.blog"
+<Base header={{ 
+    title: "titles.blogbytag",
+    // meta_descr: "meta_descr.blog"
 }}>
 
 <!-- {% assign post = page %} -->
@@ -58,6 +57,7 @@ const t = await useTranslations(lang ? lang : 'en');
                                     <div class="col"><h2>Recent Posts</h2></div>
                                 </div>
                                 {
+                                    /* @ts-ignore */
                                     latest.map((post) => (
                                         <div class="row start-xs info-block-row">
                                             <div class="col">
@@ -74,6 +74,7 @@ const t = await useTranslations(lang ? lang : 'en');
                                     </div>
                                 </div>
                                     {
+                                        /* @ts-ignore */
                                         tags.map(tag => (
                                             <div class="row start-xs">
                                                 <div class="col">

@@ -43,6 +43,7 @@ const t = await useTranslations(lang ? lang : 'en');
                                 <div class="col"><h2>Recent Posts</h2></div>
                             </div>
                             {
+                                /* @ts-ignore */
                                 latest.map((post) => (
                                     <div class="row start-xs info-block-row">
                                         <div class="col">
@@ -59,6 +60,7 @@ const t = await useTranslations(lang ? lang : 'en');
                                 </div>
                             </div>
                                 {
+                                    /* @ts-ignore */
                                     tags.map(tag => (
                                         <div class="row start-xs">
                                             <div class="col">

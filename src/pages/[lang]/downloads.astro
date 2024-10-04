@@ -23,8 +23,10 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const t = await useTranslations(lang);
 ---
-
-<Base title={{ title: "titles.downloads", header_only: false }}>
+<Base header={{ 
+    title: "titles.downloads",
+    on_body: true, 
+}}>
     <div class="downloads">
         <div class="container description">
             <p>{t('downloads.intro')}</p>

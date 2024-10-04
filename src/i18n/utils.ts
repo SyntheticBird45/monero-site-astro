@@ -1,4 +1,4 @@
-import { defaultLang, showDefaultLang, availableLangs } from './ui';
+import { defaultLang } from './ui';
 
 export async function useTranslations(lang: string) {
     const translations = await import(`./translations/${lang}.json`);

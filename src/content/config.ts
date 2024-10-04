@@ -26,9 +26,11 @@ const blogCollection = defineCollection({
 export function sortByPopularity(arr: string[]) {
     const countMap = {};
     arr.forEach(tag => {
+        /* @ts-ignore */
         countMap[tag] = (countMap[tag] || 0) + 1;
     });
     const uniqueItems = Object.keys(countMap);
+    /* @ts-ignore */
     uniqueItems.sort((a, b) => countMap[b] - countMap[a]);
     return uniqueItems;
 }

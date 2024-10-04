@@ -48,12 +48,11 @@ const allBlogPosts = (await getCollection('blog')).filter((entry) => {
 }).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title={{ 
+<Base header={{ 
     title: "titles.blogbytag", 
-    header_only: false,
-    meta_descr: "meta_descr.blog"
-}}
->
+    on_body: true
+    // meta_descr: "meta_descr.blog" 
+}}>
     <!-- Post categories selection bar -->
     <TagTopBar />
     

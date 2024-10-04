@@ -1,10 +1,4 @@
 ---
-//---
-// layout: index
-// title: Home
-// permalink: index.html
-// ---
-
 import { useTranslations } from '../../i18n/utils';
 import { availableLangs } from '../../i18n/ui.ts';
 import '../../styles/custom.css';
@@ -13,18 +7,19 @@ import Base from '../../layouts/Base.astro';
 // Exporting static path for each available languages
 export async function getStaticPaths() {
     
-    const paths = Object.keys(availableLangs).map(lang => {        
+    return Object.keys(availableLangs).map(lang => {        
         return { params: { lang } };
-    });
-    
-    return paths;
+    });;
 }
 
 const { lang } = Astro.params;
 const t = await useTranslations(lang);
 ---
 
-<Base title={{ title: "Home", header_only: true }} lang={lang}>
+<Base header={{ 
+    title: "Home",
+}}>
+
     <div class="site-wrap">
         <section class="container full col-xs-12">
             <div class="info-block info-block-main">
@@ -122,13 +117,13 @@ const t = await useTranslations(lang);
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <p><a href={`/${lang}/resources/user-guides/" class="btn-link btn-fixed`}>{t('titles.userguides')}</a></p>
+                                    <p><a href={`/${lang}/resources/user-guides/`} class="btn-link btn-fixed">{t('titles.userguides')}</a></p>
                                 </div>
                                 <div class="col">
-                                    <p><a href={`/${lang}/resources/developer-guides/" class="btn-link btn-fixed`}>{t('titles.developerguides')}</a></p>
+                                    <p><a href={`/${lang}/resources/developer-guides/`} class="btn-link btn-fixed">{t('titles.developerguides')}</a></p>
                                 </div>
                                 <div class="col">
-                                    <p><a href={`/${lang}/library/" class="btn-link btn-fixed`}>{t('titles.library')}</a></p>
+                                    <p><a href={`/${lang}/library/`} class="btn-link btn-fixed">{t('titles.library')}</a></p>
                                 </div>
                             </div>
                     </div>
@@ -140,7 +135,7 @@ const t = await useTranslations(lang);
                     <div class="info-block center-xs">
                         <h2>Moneropedia</h2>
                         <p class="main-resources">{t('home.moneropedia_para')}</p>
-                        <p><a href={`/${lang}/resources/moneropedia/" class="orange`}>{t('home.moneropedia_button')}</a></p>
+                        <p><a href={`/${lang}/resources/moneropedia/`} class="orange">{t('home.moneropedia_button')}</a></p>
                     </div>
                 </div>
                 <!-- END right one-third block-->
@@ -156,7 +151,7 @@ const t = await useTranslations(lang);
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8  why-text">
                         <h3>{t('home.contributecommunity')}</h3>
                             <p>{t('home.contributecommunity_para')}</p>
-                            <p><a href={`/${lang}/get-started/contributing/" class="btn-link btn-fixed`}>{t('home.contributing')}</a></p>
+                            <p><a href={`/${lang}/get-started/contributing/`} class="btn-link btn-fixed">{t('home.contributing')}</a></p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 center-xs">
                         <img src="/img/learn-about-monero.png" width="1500" height="1500" loading="lazy" alt="Contribute" class="main-icon">
@@ -169,14 +164,14 @@ const t = await useTranslations(lang);
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 why-text">
                         <h3>{t('titles.researchlab')}</h3>
                         <p>{t('home.researchlab_para')}</p>
-                        <p><a href={`/${lang}/resources/research-lab/" class="btn-link btn-fixed`}>{t('home.visitmrl')}</a></p>
+                        <p><a href={`/${lang}/resources/research-lab/`} class="btn-link btn-fixed">{t('home.visitmrl')}</a></p>
                     </div>
                </div>
                <div class="row middle-xs info-block-row private">
                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8  why-text">
                         <h3>{t('home.meetcommunity')}</h3>
                             <p>{t('home.meetus')}</p>
-                            <p><a href={`/${lang}/community/hangouts/" class="btn-link btn-fixed`}>{t('home.hangouts')}</a></p>
+                            <p><a href={`/${lang}/community/hangouts/`} class="btn-link btn-fixed">{t('home.hangouts')}</a></p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 center-xs">
                         <img src="/img/community-logo.png" width="1500" height="1500" loading="lazy" alt="Contribute" class="main-icon">

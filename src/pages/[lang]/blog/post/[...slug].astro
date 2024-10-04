@@ -18,6 +18,7 @@ export async function getStaticPaths() {
             allTags.push(tag)
         })
     });
+    // Collect four most popular tags
     const fourTags = sortByPopularity(allTags).slice(0, 4);
     
     // Collect 5 latest blog post

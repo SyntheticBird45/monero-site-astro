@@ -1,21 +1,29 @@
 ---
 import { useTranslations } from "src/i18n/utils";
+import { type HeaderProps as Props } from '@layouts/header';
 
-const page = { ...Astro.params, ...Astro.props };
-const t = await useTranslations(page.lang ? page.lang : 'en');
+/* Collect properties here */
+const { header } = Astro.props;
+/* Collect lang and tag (if available) */
+const { lang, tag } = Astro.params;
 
+/* i18n */
+const t = await useTranslations(lang ? lang : 'en');
+
+/* Header title branching */
 function title() {
-    if(page.entry) {
+    if(header.entry) {
         return `${t(`page.entry`)} | ${t(`global.wiki`)} | ${t(`page.index.page_title`)}`
     }
-    else if(page.tag) {
-        return `${t(`global.tags`)}: ${page.tag.name} | ${t(`page.index.page_title`)}`
+    else if(tag) {
+        return `${t(`global.tags`)}: ${tag} | ${t(`page.index.page_title`)}`
     }
-    else if(page.title.title.includes('titles.')) {
-        return `${t(page.title.title)} | ${t('index.page_title')}`
-    }
-    else if(page.title) {
-        return `${page.title.title} | ${t('index.page_title')}`
+    else if(header.title) {
+        if(header.title.includes('titles.')) {
+            return `${t(header.title)} | ${t('index.page_title')}`
+        } else {
+            return `${header.title} | ${t('index.page_title')}`
+        }
     } else {
         return `${t(`index.page_title`)}`
     }
@@ -29,6 +37,19 @@ function title() {
     <title>
         {title()}
     </title>
+    
+    <!-- og:title -->
+    
+    <!-- og:description -->
+    
+    <meta name="keywords" content={header.keywords}>
+    
+    <!-- og:image -->
+    
+    <meta property="og:site_name" content="{% t global.sitename %}">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta http-equiv="onion-location" content="{% include onion.html %}" />
     
     <!-- other meta --->
     
@@ -44,5 +65,5 @@ function title() {
     <meta name="msapplication-config" content="/ietemplates/ieconfig.xml">
     
     <!-- Feed autodetection -->
-    <link type="application/atom+xml" rel="alternate" href="{{ site.baseurl_root }}/feed.xml" title="Monero">
+    <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Monero">
 </head>

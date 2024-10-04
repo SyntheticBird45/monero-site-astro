@@ -27,7 +27,11 @@ const { posts, total } = Astro.props;
 const t = await useTranslations(lang);
 ---
 
-<Base title={{ title: "titles.blogbytag", header_only: false, meta_descr: "meta_descr.blog" }}>
+<Base header={{ 
+    title: "titles.blogbytag", 
+    on_body: true
+    // meta_descr: "meta_descr.blog" 
+}}>
     
     <!-- Post categories selection bar -->
     <TagTopBar />

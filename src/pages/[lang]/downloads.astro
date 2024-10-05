@@ -1,11 +1,7 @@
 ---
-// layout: custom
-// title: titles.downloads
-// permalink: /downloads/index.html
 // meta_descr: downloads.intro
 
-import { availableLangs } from 'src/i18n/ui';
-import { useTranslations } from '../../i18n/utils';
+import { langs, useTranslations } from '@i18n';
 import downloads from '@public/downloads.json';
 import '../../styles/custom.css';
 import Base from 'src/layouts/Base.astro';
@@ -13,7 +9,7 @@ import Base from 'src/layouts/Base.astro';
 // Exporting static path for each available languages
 export async function getStaticPaths() {
     
-    const paths = Object.keys(availableLangs).map(lang => {        
+    const paths = Object.keys(langs).map(lang => {        
         return { params: { lang } };
     });
     

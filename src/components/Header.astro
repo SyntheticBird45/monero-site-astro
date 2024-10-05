@@ -1,7 +1,6 @@
 ---
 // @ts-nocheck
-import { availableLangs } from "src/i18n/ui";
-import { useTranslations } from "src/i18n/utils";
+import { langs, useTranslations } from "@i18n";
 
 const page = { ...Astro.params, ...Astro.props };
 const lang = page.lang;
@@ -112,12 +111,12 @@ function removeFirstPartOfUrl(url: string): string {
                             <input class="burger-checkdropdown" id="langdrop" type="checkbox" tabindex="0">
                             <label for="langdrop">
                                 <img src="/img/language.png" width="500" height="500" alt="Language selector icon" class="icon-language"/>
-                                {availableLangs[lang]}
+                                {langs[lang].name}
                                 <div class="arrow-down"></div>
                             </label>
                             <div class="dropdown-content text-center">
-                                {Object.keys(availableLangs).filter((llang) => llang != lang).map((llang) => (
-                                    <a href={`/${llang}${removeFirstPartOfUrl(Astro.url.pathname)}`}>{availableLangs[llang]}</a>
+                                {Object.keys(langs).filter((llang) => llang != lang).map((llang) => (
+                                    <a href={`/${llang}${removeFirstPartOfUrl(Astro.url.pathname)}`}>{langs[llang].name}</a>
                                 ))}
                             </div>
                         </div>
@@ -184,9 +183,9 @@ function removeFirstPartOfUrl(url: string): string {
         <input class="burger-checkdropdown" id="moblangdrop" type="checkbox" tabindex="0">
         <label for="moblangdrop"><img src="/img/language.png" width="500" height="500" alt="Lang" class="icon-language"/><div class="arrow-down"></div></label>
             <div class="mob dropdown-content text-center">
-                <p class="mob-lang-change mob-lang-selected">{availableLangs[lang]}</p>
-                {Object.keys(availableLangs).filter((llang) => llang != lang).map((llang) => (
-                    <a class="mob-lang-change" href={`/${llang}${removeFirstPartOfUrl(Astro.url.pathname)}`}>{availableLangs[llang]}</a>
+                <p class="mob-lang-change mob-lang-selected">{langs[lang].name}</p>
+                {Object.keys(langs).filter((llang) => llang != lang).map((llang) => (
+                    <a class="mob-lang-change" href={`/${llang}${removeFirstPartOfUrl(Astro.url.pathname)}`}>{langs[llang].name}</a>
                 ))}
             </div>
         </div>

@@ -1,25 +1,30 @@
-import { defaultLang } from './ui';
+import { defaultLang, langs } from './ui';
 
 export async function useTranslations(lang: string) {
-    const translations = await import(`./translations/${lang}.json`);
-    const defaultTranslations = await import(`./translations/${defaultLang}.json`);
+    // @ts-ignore
+    const translations = langs[lang].translations;
+    const defaultTranslations = langs['en'].translations;
     
     return function t(key: string) {
         const keys = key.split('.');
         let translation = translations;
         
         for (const k of keys) {
-          if (translation[k] !== undefined) {
-            translation = translation[k];
-          } else {
-            translation = defaultTranslations;
-            for (const k of keys) {
-              if (translation[k] !== undefined) {
+            // @ts-ignore
+            if (translation[k] !== undefined) {
+                // @ts-ignore
                 translation = translation[k];
-              } else {
-                return undefined;
-              }
-            }
+            } else {
+                translation = defaultTranslations;
+                for (const k of keys) {
+                    // @ts-ignore
+                    if (translation[k] !== undefined) {
+                        // @ts-ignore
+                        translation = translation[k];
+                    } else {
+                        return null;
+                    }
+                }
           }
         }
         

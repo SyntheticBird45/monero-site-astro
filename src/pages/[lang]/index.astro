@@ -1,15 +1,14 @@
 ---
-import { useTranslations } from '../../i18n/utils';
-import { availableLangs } from '../../i18n/ui.ts';
+import { langs, useTranslations } from '@i18n';
 import '../../styles/custom.css';
 import Base from '../../layouts/Base.astro';
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
     
-    return Object.keys(availableLangs).map(lang => {        
+    return Object.keys(langs).map(lang => {        
         return { params: { lang } };
-    });;
+    });
 }
 
 const { lang } = Astro.params;

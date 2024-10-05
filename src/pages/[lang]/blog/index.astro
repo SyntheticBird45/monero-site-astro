@@ -1,6 +1,5 @@
 ---
-import { availableLangs } from 'src/i18n/ui';
-import { useTranslations } from '../../../i18n/utils';
+import { langs, useTranslations, translatePath } from '@i18n';
 import { getCollection } from 'astro:content';
 import { chunkArray } from '@content/utils';
 
@@ -17,20 +16,23 @@ export async function getStaticPaths() {
     const chunkedBlogPosts = chunkArray(allBlogPosts, 10);
     const total = chunkedBlogPosts.length;
     
-    return Object.keys(availableLangs).map(lang => {
+    return Object.keys(langs).map(lang => {
         return { params: { lang }, props: { posts: chunkedBlogPosts[0], total } };
     }).flat(1);
 }
 
-const { lang } = Astro.params;
 const { posts, total } = Astro.props;
+
+//i18n
+const { lang } = Astro.params;
 const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.blogbytag", 
-    on_body: true
-    // meta_descr: "meta_descr.blog" 
+    on_body: true,
+    meta_descr: "meta_descr.blog" 
 }}>
     
     <!-- Post categories selection bar -->

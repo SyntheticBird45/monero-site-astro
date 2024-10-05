@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: meta_descr.roadmap
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.roadmap",
-    on_body: true, 
+    on_body: true,
+    meta_descr: 'meta_descr.roadmap' 
 }}>
 
 <div class="roadmap">
@@ -199,9 +202,9 @@ const t = await useTranslations(lang)
                                 <h3 class="months">{t('roadmap.feb')}</h3>
                                     <li class="completed">{t('roadmap.onionaddress')}</li>
                                 <h3 class="months">{t('roadmap.aug')}</h3>
-                                    <li class="completed"><a href="{{ site.baseurl }}/2021/08/20/atomic-swaps.html">{t('roadmap.atomicswaps')}</a></li>
+                                    <li class="completed"><a href={l('/2021/08/20/atomic-swaps.html')}>{t('roadmap.atomicswaps')}</a></li>
                                 <h3 class="months">{t('roadmap.oct')}</h3>
-                                    <li class="completed"><a href="{{ site.baseurl }}/2021/10/05/p2pool-released.html">{t('roadmap.p2pool')}</a></li>
+                                    <li class="completed"><a href={l('/2021/10/05/p2pool-released.html')}>{t('roadmap.p2pool')}</a></li>
                             </ul>
                     </div>
                     <label for="tab-4" tabindex="0"></label>
@@ -213,9 +216,9 @@ const t = await useTranslations(lang)
                                 <h3 class="months">{t('roadmap.apr')}</h3>
                                     <li class="completed">{t('roadmap.view-tags')}</li>
                                 <h3 class="months">{t('roadmap.jul')}</h3>
-                                    <li class="completed"><a href="{{ site.baseurl }}/2022/07/19/monero-0.18.0.0-released.html">{t('roadmap.released-0-18')}</a></li>
+                                    <li class="completed"><a href={l('/2022/07/19/monero-0.18.0.0-released.html')}>{t('roadmap.released-0-18')}</a></li>
                                 <h3 class="months">{t('roadmap.aug')}</h3>
-                                    <li class="completed"><a href="{{ site.baseurl }}/2022/04/20/network-upgrade-july-2022.html">{t('roadmap.hardfork-v15')}</a></li>
+                                    <li class="completed"><a href={l('/2022/04/20/network-upgrade-july-2022.html')}>{t('roadmap.hardfork-v15')}</a></li>
                             </ul>
                     </div>
                     <label for="tab-5" tabindex="0"></label>

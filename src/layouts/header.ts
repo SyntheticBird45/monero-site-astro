@@ -1,4 +1,4 @@
-/* Header properties */
+/* Header component extracted properties */
 export interface HeaderProps {
     /* Specific header informations */
     header: {
@@ -10,5 +10,9 @@ export interface HeaderProps {
         on_body?: boolean | undefined,
         /* Keywords for meta headers */
         keywords?: string | undefined,
+        /* Dedicated meta image */
+        image?: string | undefined
+        /* Provided meta description */
+        meta_descr?: string | undefined
     }
 }

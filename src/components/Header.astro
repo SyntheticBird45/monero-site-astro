@@ -1,10 +1,11 @@
 ---
 // @ts-nocheck
-import { langs, useTranslations } from "@i18n";
+import { langs, useTranslations, translatePath } from "@i18n";
 
 const page = { ...Astro.params, ...Astro.props };
 const lang = page.lang;
 const t = await useTranslations(page.lang ? page.lang : 'en');
+const l = translatePath(lang);
 
 function removeFirstPartOfUrl(url: string): string {
     const pathParts = url.split('/').filter(part => part); // Split and filter out empty parts
@@ -23,22 +24,22 @@ function removeFirstPartOfUrl(url: string): string {
                     <label for="drop1">{t('navigation.getstarted')}<div class="arrow-down"></div></label>
                     <input class="burger-checkdropdown" id="drop1" type="checkbox" tabindex="0">
                     <div class="dropdown-content">
-                        <a href={`/${lang}/get-started/what-is-monero/`}>{t('navigation.whatis')}</a>
-                        <a href={`/${lang}/get-started/accepting/`}>{t('navigation.accepting')}</a>
-                        <a href={`/${lang}/get-started/contributing/`}>{t('navigation.contributing')}</a>
-                        <a href={`/${lang}/get-started/mining/`}>{t('navigation.mining')}</a>
-                        <a href={`/${lang}/get-started/faq/`}>{t('titles.faq')}</a>
+                        <a href={l('/get-started/what-is-monero/')}>{t('navigation.whatis')}</a>
+                        <a href={l('/get-started/accepting/')}>{t('navigation.accepting')}</a>
+                        <a href={l('/get-started/contributing/')}>{t('navigation.contributing')}</a>
+                        <a href={l('/get-started/mining/')}>{t('navigation.mining')}</a>
+                        <a href={l('/get-started/faq/')}>{t('titles.faq')}</a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 dropdown nav-item">
-                      <a href={`/${lang}/downloads/`}>{t('titles.downloads')}</a>
+                      <a href={l('/downloads/')}>{t('titles.downloads')}</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 dropdown nav-item">
-                  <a href={`/${lang}/blog/`}>{t('titles.blogbytag')}</a>
+                  <a href={l('/blog/')}>{t('titles.blogbytag')}</a>
                 </div>
             </div>
             <div class="row">
@@ -46,10 +47,10 @@ function removeFirstPartOfUrl(url: string): string {
                     <label for="drop2">{t('navigation.community')}<div class="arrow-down"></div></label>
                     <input class="burger-checkdropdown" id="drop2" type="checkbox" tabindex="0">
                     <div class="dropdown-content">
-                        <a href={`/${lang}/community/workgroups/`}>{t('titles.workgroups')}</a>
-                        <a href={`/${lang}/community/hangouts/`}>{t('titles.hangouts')}</a>
-                        <a href={`/${lang}/community/sponsorships/`}>{t('titles.sponsorships')}</a>
-                        <a href={`/${lang}/community/merchants/`}>{t('navigation.merchants')}</a>
+                        <a href={l('/community/workgroups/')}>{t('titles.workgroups')}</a>
+                        <a href={l('/community/hangouts/')}>{t('titles.hangouts')}</a>
+                        <a href={l('/community/sponsorships/')}>{t('titles.sponsorships')}</a>
+                        <a href={l('/community/merchants/')}>{t('navigation.merchants')}</a>
                     </div>
                 </div>
             </div>
@@ -58,15 +59,15 @@ function removeFirstPartOfUrl(url: string): string {
                     <label for="drop3">{t('navigation.resources')}<div class="arrow-down"></div></label>
                     <input class="burger-checkdropdown" id="drop3" type="checkbox" tabindex="0">
                     <div class="dropdown-content">
-                        <a href={`/${lang}/resources/about/`}>{t('navigation.about')}</a>
-                        <a href={`/${lang}/resources/roadmap/`}>{t('titles.roadmap')}</a>
-                        <a href={`/${lang}/resources/research-lab/`}>{t('navigation.mrl')}</a>
-                        <a href={`/${lang}/resources/moneropedia/`}>{t('titles.moneropedia')}</a>
-                        <a href={`/${lang}/resources/user-guides/`}>{t('titles.userguides')}</a>
-                        <a href={`/${lang}/resources/developer-guides/`}>{t('titles.developerguides')}</a>
-                        <a href={`/${lang}/resources/tools/`}>{t('titles.tools')}</a>
-                        <a href={`/${lang}/library/`}>{t('titles.library')}</a>
-                        <a href={`/${lang}/press-kit/`}>{t('titles.presskit')}</a>
+                        <a href={l('/resources/about/')}>{t('navigation.about')}</a>
+                        <a href={l('/resources/roadmap/')}>{t('titles.roadmap')}</a>
+                        <a href={l('/resources/research-lab/')}>{t('navigation.mrl')}</a>
+                        <a href={l('/resources/moneropedia/')}>{t('titles.moneropedia')}</a>
+                        <a href={l('/resources/user-guides/')}>{t('titles.userguides')}</a>
+                        <a href={l('/resources/developer-guides/')}>{t('titles.developerguides')}</a>
+                        <a href={l('/resources/tools/')}>{t('titles.tools')}</a>
+                        <a href={l('/library/')}>{t('titles.library')}</a>
+                        <a href={l('/press-kit/')}>{t('titles.presskit')}</a>
                     </div>
                 </div>
             </div>
@@ -132,42 +133,42 @@ function removeFirstPartOfUrl(url: string): string {
                 <label for="desktopdrop1">{t('navigation.getstarted')}<div class="arrow-down"></div></label>
                 <input class="burger-checkdropdown" id="desktopdrop1" type="checkbox" tabindex="0">
                 <div class="dropdown-content">
-                    <a href={`/${lang}/get-started/what-is-monero/`}>{t('navigation.whatis')}</a>
-                    <a href={`/${lang}/get-started/accepting/`}>{t('navigation.accepting')}</a>
-                    <a href={`/${lang}/get-started/contributing/`}>{t('navigation.contributing')}</a>
-                    <a href={`/${lang}/get-started/mining/`}>{t('navigation.mining')}</a>
-                    <a href={`/${lang}/get-started/faq/`}>{t('titles.faq')}</a>
+                    <a href={l('/get-started/what-is-monero/')}>{t('navigation.whatis')}</a>
+                    <a href={l('/get-started/accepting/')}>{t('navigation.accepting')}</a>
+                    <a href={l('/get-started/contributing/')}>{t('navigation.contributing')}</a>
+                    <a href={l('/get-started/mining/')}>{t('navigation.mining')}</a>
+                    <a href={l('/get-started/faq/')}>{t('titles.faq')}</a>
                 </div>
             </div>
             <div class="col dropdown nav-item">
-                <a href={`/${lang}/downloads/`}>{t('titles.downloads')}</a>
+                <a href={l('/downloads/')}>{t('titles.downloads')}</a>
             </div>
             <div class="col dropdown nav-item">
-                <a href={`/${lang}/blog/`}>{t('titles.blogbytag')}</a>
+                <a href={l('/blog/')}>{t('titles.blogbytag')}</a>
             </div>
             <div class="col dropdown nav-item">
                 <label for="desktopdrop2">{t('navigation.community')}<div class="arrow-down"></div></label>
                 <input class="burger-checkdropdown" id="desktopdrop2" type="checkbox" tabindex="0">
                 <div class="dropdown-content">
-                    <a href={`/${lang}/community/workgroups/`}>{t('titles.workgroups')}</a>
-                    <a href={`/${lang}/community/hangouts/`}>{t('titles.hangouts')}</a>
-                    <a href={`/${lang}/community/sponsorships/`}>{t('titles.sponsorships')}</a>
-                    <a href={`/${lang}/community/merchants/`}>{t('navigation.merchants')}</a>
+                    <a href={l('/community/workgroups/')}>{t('titles.workgroups')}</a>
+                    <a href={l('/community/hangouts/')}>{t('titles.hangouts')}</a>
+                    <a href={l('/community/sponsorships/')}>{t('titles.sponsorships')}</a>
+                    <a href={l('/community/merchants/')}>{t('navigation.merchants')}</a>
                 </div>
             </div>
             <div class="col dropdown nav-item">
                 <label for="desktopdrop3">{t('navigation.resources')}<div class="arrow-down"></div></label>
                 <input class="burger-checkdropdown" id="desktopdrop3" type="checkbox" tabindex="0">
                 <div class="dropdown-content">
-                    <a href={`/${lang}/resources/about/`}>{t('navigation.about')}</a>
-                    <a href={`/${lang}/resources/roadmap/`}>{t('titles.roadmap')}</a>
-                    <a href={`/${lang}/resources/research-lab/`}>{t('navigation.mrl')}</a>
-                    <a href={`/${lang}/resources/moneropedia/`}>{t('titles.moneropedia')}</a>
-                    <a href={`/${lang}/resources/user-guides/`}>{t('titles.userguides')}</a>
-                    <a href={`/${lang}/resources/developer-guides/`}>{t('titles.developerguides')}</a>
-                    <a href={`/${lang}/resources/tools/`}>{t('titles.tools')}</a>
-                    <a href={`/${lang}/library/`}>{t('titles.library')}</a>
-                    <a href={`/${lang}/press-kit/`}>{t('titles.presskit')}</a>
+                    <a href={l('/resources/about/')}>{t('navigation.about')}</a>
+                    <a href={l('/resources/roadmap/')}>{t('titles.roadmap')}</a>
+                    <a href={l('/resources/research-lab/')}>{t('navigation.mrl')}</a>
+                    <a href={l('/resources/moneropedia/')}>{t('titles.moneropedia')}</a>
+                    <a href={l('/resources/user-guides/')}>{t('titles.userguides')}</a>
+                    <a href={l('/resources/developer-guides/')}>{t('titles.developerguides')}</a>
+                    <a href={l('/resources/tools/')}>{t('titles.tools')}</a>
+                    <a href={l('/library/')}>{t('titles.library')}</a>
+                    <a href={l('/press-kit/')}>{t('titles.presskit')}</a>
                 </div>
             </div>
         </div>

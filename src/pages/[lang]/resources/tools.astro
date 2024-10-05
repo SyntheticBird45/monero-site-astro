@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: meta_descr.tools
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.tools",
     on_body: true, 
+    meta_descr: 'meta_descr.tools'
 }}>
 
 <div class="text-center container description">

@@ -1,9 +1,10 @@
 ---
-import { useTranslations } from "../i18n/utils";
+import { useTranslations, translatePath } from "../i18n/utils";
 
 const page = { ...Astro.params, ...Astro.props };
 const lang = page.lang;
 const t = await useTranslations(page.lang ? page.lang : 'en');
+const l = translatePath(lang);
 ---
 
 <footer class="container-fluid">
@@ -12,20 +13,20 @@ const t = await useTranslations(page.lang ? page.lang : 'en');
              <div class="col-sm-3 col-xs-6">
                  <h3>{t('navigation.resources')}</h3>
                     <ul class="list-unstyled">
-                        <li><a class="white" href={`/${lang}/resources/about/`}>{t('titles.about')}</a></li>
-                        <li><a class="white" href={`/${lang}/resources/moneropedia/`}>Moneropedia</a></li>
-                        <li><a class="white" href={`/${lang}/resources/developer-guides/`}>{t('titles.developerguides')}</a></li>
-                        <li><a class="white" href={`/${lang}/resources/user-guides/`}>{t('titles.userguides')}</a></li>
-                        <li><a class="white" href={`/${lang}/library/`}>{t('titles.library')}</a></li>
-                        <li><a class="white" href={`/${lang}/downloads/`}>{t('titles.downloads')}</a></li>
+                        <li><a class="white" href={l('/resources/about/')}>{t('titles.about')}</a></li>
+                        <li><a class="white" href={l('/resources/moneropedia/')}>Moneropedia</a></li>
+                        <li><a class="white" href={l('/resources/developer-guides/')}>{t('titles.developerguides')}</a></li>
+                        <li><a class="white" href={l('/resources/user-guides/')}>{t('titles.userguides')}</a></li>
+                        <li><a class="white" href={l('/library/')}>{t('titles.library')}</a></li>
+                        <li><a class="white" href={l('/downloads/')}>{t('titles.downloads')}</a></li>
                         
                     </ul>
              </div>
              <div class="col-sm-3 col-xs-6">
                 <h3>{t('footer.reachout')}</h3>
                     <ul class="list-unstyled">
-                         <li><a class="white" href={`/${lang}/community/team/`}>{t('titles.workgroups')}</a></li>
-                         <li><a class="white" href={`/${lang}/community/hangouts/`}>{t('titles.hangouts')}</a></li>
+                         <li><a class="white" href={l('/community/team/')}>{t('titles.workgroups')}</a></li>
+                         <li><a class="white" href={l('/community/hangouts/')}>{t('titles.hangouts')}</a></li>
                          <li><a class="white" href="https://lists.getmonero.org/postorius/lists/monero-announce.lists.getmonero.org/">{t('footer.ml')}</a></li>
 
                     </ul>
@@ -33,7 +34,7 @@ const t = await useTranslations(page.lang ? page.lang : 'en');
             <div class="col-sm-3 col-xs-6">
                 <h3>{t('navigation.community')}</h3>
                     <ul class="list-unstyled">
-                         <li><a class="white" href={`/${lang}/community/merchants/`}>{t('titles.merchants')}</a></li>
+                         <li><a class="white" href={l('/community/merchants/')}>{t('titles.merchants')}</a></li>
                          <li><a class="white" href="https://monero.stackexchange.com/">Stack Exchange</a></li>
                          <li><a class="white" href="https://bitcointalk.org/index.php?topic=583449.0">BitcoinTalk</a></li>
                          <li><a class="white" href="https://translate.getmonero.org/">Weblate</a></li>
@@ -43,8 +44,8 @@ const t = await useTranslations(page.lang ? page.lang : 'en');
                 <h3>{t('global.monero_project')}</h3>
                     <ul class="list-unstyled">
                          <li><a class="white" href="https://openalias.org/">Open Alias</a></li>
-                         <li><a class="white" href={`/${lang}/resources/research-lab/`}>{t('titles.researchlab')}</a></li>
-                         <li><a class="white" href={`/${lang}/press-kit/`}>{t('titles.presskit')}</a></li>
+                         <li><a class="white" href={l('/resources/research-lab/')}>{t('titles.researchlab')}</a></li>
+                         <li><a class="white" href={l('/press-kit/')}>{t('titles.presskit')}</a></li>
                          <li><a class="white" href="https://ccs.getmonero.org">{t('footer.ccs')}</a></li>
                     </ul>
             </div>
@@ -52,9 +53,9 @@ const t = await useTranslations(page.lang ? page.lang : 'en');
             <div class="footer-links">
                 <ul class="list-unstyled list-inline">
                     <li><a href={`http://monerotoruzizulg5ttgat2emf4d6fbmiea25detrmmy7erypseyteyd.onion/${Astro.url.pathname}`} class="white footer-link"><img class="tor" src="/img/onion-tor.svg" alt="onion service">{t('tools.onion-service')}</a></li>
-                     <li><a href={`/${lang}/legal/`} class="white footer-link">{t('footer.legal')}</a></li>
+                     <li><a href={l('/legal/')} class="white footer-link">{t('footer.legal')}</a></li>
                      <li><a href="https://github.com/monero-project/monero-site" class="white footer-link">{t('footer.source')}</a></li>
-                     <li><a href={`/${lang}/sitemap.xml`} class="white footer-link">Sitemap</a></li>
+                     <li><a href={l('/sitemap.xml')} class="white footer-link">Sitemap</a></li>
                      <li><a class="white" href={`${Astro.url.host}/feed.xml`}><img src="/img/feed.svg" width="30" height="30" alt="Feed icon">{t('footer.feed')}</a></li>
                 </ul>
             </div>

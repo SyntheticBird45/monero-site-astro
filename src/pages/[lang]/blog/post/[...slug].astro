@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { availableLangs } from 'src/i18n/ui';
+import { langs } from '@i18n';
 import { sortByPopularity } from '@content/config';
 
 import BlogPost from '@layouts/BlogPost.astro';
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
     return blogPosts.map((post) => {
         
         // Create a static route for each posts for each languages.
-        return Object.keys(availableLangs).map(lang => {
+        return Object.keys(langs).map(lang => {
             return { params: { lang, slug: post.slug }, props: { post, latest: latestBlogPosts, tags: fourTags} }
         });
     }).flat(1);

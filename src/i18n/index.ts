@@ -1,8 +1,8 @@
-import { availableLangs, langs } from "./ui";
-import { useTranslations } from "./utils";
+import { langs } from "./ui";
+import { useTranslations, translatePath } from "./utils";
 
 export {
     langs,
-    availableLangs,
+    translatePath,
     useTranslations
 }

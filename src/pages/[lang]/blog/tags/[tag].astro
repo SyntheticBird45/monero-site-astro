@@ -1,6 +1,5 @@
 ---
-import { availableLangs } from 'src/i18n/ui';
-import { useTranslations } from '../../../../i18n/utils';
+import { langs, useTranslations, translatePath } from '@i18n';
 import { getCollection } from 'astro:content';
 import { sortByPopularity } from '@content/config';
 
@@ -32,7 +31,7 @@ export async function getStaticPaths() {
     return allTags.map((tag) => {
         
         // Create a static route for each tags for each languages.
-        return Object.keys(availableLangs).map(lang => {
+        return Object.keys(langs).map(lang => {
             return { params: { lang, tag }, props: { latest: latestBlogPosts, tags: fourMostPopularTags} }
         });
     }).flat(1);
@@ -41,6 +40,7 @@ export async function getStaticPaths() {
 // i18n
 const { lang, tag } = Astro.params;
 const t = await useTranslations(lang!);
+const l = translatePath(lang);
 
 // Sort all blog posts per date.
 const allBlogPosts = (await getCollection('blog')).filter((entry) => {
@@ -50,8 +50,8 @@ const allBlogPosts = (await getCollection('blog')).filter((entry) => {
 
 <Base header={{ 
     title: "titles.blogbytag", 
-    on_body: true
-    // meta_descr: "meta_descr.blog" 
+    on_body: true,
+    meta_descr: "meta_descr.blog" 
 }}>
     <!-- Post categories selection bar -->
     <TagTopBar />

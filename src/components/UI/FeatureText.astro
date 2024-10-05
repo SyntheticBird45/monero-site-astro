@@ -1,0 +1,31 @@
+---
+interface Props {
+    image: string,
+    alt?: string,
+    /* If on, image is on the right */
+    reverse?: boolean,
+    class?: string
+}
+
+const props = Astro.props;
+---
+<div class="row middle-xs info-block-row">
+    {
+        props.reverse? 
+        (
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 why-text">
+                <slot />
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 center-xs ">
+                <img src={props.image} width="1500" height="1500" loading="lazy" alt={props.alt} class={props.class? props.class: "main-icon"}>
+            </div>
+        ) : (
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 center-xs first-md last-sm last-xs">
+                <img src={props.image} width="1500" height="1500" loading="lazy" alt={props.alt} class={props.class? props.class: "main-icon"}>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 why-text">
+                <slot />
+            </div>
+        )
+    }
+</div>

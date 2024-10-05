@@ -1,19 +1,20 @@
 ---
-import { useTranslations } from "src/i18n/utils";
+import { useTranslations, translatePath } from "@i18n";
 
 const { lang } = Astro.params;
 const t = await useTranslations(lang!);
+const l = translatePath(lang!);
 ---
 
 <div class="blog">
     <!-- Category selector: desktop -->
     <div class="container full">
         <div class="info-block blog-nav row">
-            <div class="col {% if page.name == 'index.html' %}checked{% endif %}"><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></div>
-            <div class="col"><a href={`/${lang}/blog/tags/urgent/`}>{t('blog.urgent')}</a></div>
-            <div class="col"><a href={`/${lang}/blog/tags/releases/`}>{t('blog.releases')}</a></div>
-            <div class="col"><a href={`/${lang}/blog/tags/community/`}>{t('blog.community')}</a></div>
-            <div class="col"><a href={`/${lang}/blog/tags/dev%20diaries/`}>{t('blog.meetinglogs')}</a></div>
+            <div class="col {% if page.name == 'index.html' %}checked{% endif %}"><a href={l('/blog/')}>{t('blog.allposts')}</a></div>
+            <div class="col"><a href={l('/blog/tags/urgent/')}>{t('blog.urgent')}</a></div>
+            <div class="col"><a href={l('/blog/tags/releases/')}>{t('blog.releases')}</a></div>
+            <div class="col"><a href={l('/blog/tags/community/')}>{t('blog.community')}</a></div>
+            <div class="col"><a href={l('/blog/tags/dev%20diaries/')}>{t('blog.meetinglogs')}</a></div>
         </div>
     </div>
     <!-- End category selector: desktop -->
@@ -24,11 +25,11 @@ const t = await useTranslations(lang!);
                 <input id="filter" type="checkbox" name="category-filter"/>
                 <label for="filter">{t('blog.filter')}</label>
                 <ul id="menu">
-                    <li><a href={`/${lang}/blog/`}>{t('blog.allposts')}</a></li>
-                    <li><a href={`/${lang}/blog/tags/urgent/`}>{t('blog.urgent')}</a></li>
-                    <li><a href={`/${lang}/blog/tags/releases/`}>{t('blog.releases')}</a></li>
-                    <li><a href={`/${lang}/blog/tags/community/`}>{t('blog.community')}</a></li>
-                    <li><a href={`/${lang}/blog/tags/dev%20diaries/`}>{t('blog.meetinglogs')}</a></li>
+                    <li><a href={l('/blog/')}>{t('blog.allposts')}</a></li>
+                    <li><a href={l('/blog/tags/urgent/')}>{t('blog.urgent')}</a></li>
+                    <li><a href={l('/blog/tags/releases/')}>{t('blog.releases')}</a></li>
+                    <li><a href={l('/blog/tags/community/')}>{t('blog.community')}</a></li>
+                    <li><a href={l('/blog/tags/dev%20diaries/')}>{t('blog.meetinglogs')}</a></li>
                 </ul>
             </div>
         </div>

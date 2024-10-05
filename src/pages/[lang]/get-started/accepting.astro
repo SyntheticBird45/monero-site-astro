@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: meta_descr.accepting
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
-    title: "titles.accepting",
+    title: 'titles.accepting',
     on_body: true, 
+    meta_descr: 'meta_descr.accepting'
 }}>
 
 <section class="container">
@@ -58,9 +61,9 @@ const t = await useTranslations(lang)
               <p><code>address new [label text with white spaces allowed]</code></p>
               <p><i>{t('accepting.clinotes')}</i></p>
             <h3 id="merchants">{t('accepting.merchantstitle')}</h3>
-              <p>{t('accepting.merchantsreceive')} <a href="{{ site.baseurl }}/resources/developer-guides/">{t('accepting.merchdevguides')}</a>. {t('accepting.merchantsreceive1')}</p>
+              <p>{t('accepting.merchantsreceive')} <a href={l('/resources/developer-guides/')}>{t('accepting.merchdevguides')}</a>. {t('accepting.merchantsreceive1')}</p>
               <p>{t('accepting.merchantsint')} <a href="https://github.com/monero-integrations">{t('accepting.merchantsintlink')}</a>.</p>
-              <p>{t('accepting.merchantsthirdp')} <a href="{{ site.baseurl }}/resources/tools/#payment-gateways">{t('accepting.merchthirdlink')}</a>. {t('accepting.merchantsthirdp1')}</p>
+              <p>{t('accepting.merchantsthirdp')} <a href={l('/resources/tools/#payment-gateways')}>{t('accepting.merchthirdlink')}</a>. {t('accepting.merchantsthirdp1')}</p>
           </div>
         </div>                
     </div>

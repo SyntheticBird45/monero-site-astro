@@ -1,9 +1,7 @@
 ---
-// meta_descr: downloads.intro
-
-import { langs, useTranslations } from '@i18n';
+import { langs, useTranslations, translatePath } from '@i18n';
 import downloads from '@public/downloads.json';
-import '../../styles/custom.css';
+
 import Base from 'src/layouts/Base.astro';
 
 // Exporting static path for each available languages
@@ -16,12 +14,15 @@ export async function getStaticPaths() {
     return paths;
 }
 
+// i18n
 const { lang } = Astro.params;
 const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 <Base header={{ 
-    title: "titles.downloads",
+    title: 'titles.downloads',
     on_body: true, 
+    meta_descr: 'downloads.intro'
 }}>
     <div class="downloads">
         <div class="container description">
@@ -120,13 +121,13 @@ const t = await useTranslations(lang);
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                 <p>{t('downloads.packages')} <a href="https://github.com/monero-project/monero-gui#installing-the-monero-gui-from-a-package" target="_blank">{t('downloads.packages_link')}</a>.</p>
                                 <h3>{t('downloads.antivirus')}</h3>
-                                <p>{t('downloads.avwarning')} <a href={`/${lang}/get-started/faq/#antivirus`}>{t('downloads.moreinfofaq')}</a>.</p>
+                                <p>{t('downloads.avwarning')} <a href={l('/get-started/faq/#antivirus')}>{t('downloads.moreinfofaq')}</a>.</p>
                                 <h3>{t('downloads.verify')}</h3>
                                   <p>{t('downloads.verify1')} <i>{t('downloads.verify2')}</i></p><br>
                                   <details>
                                   <summary>{t('downloads.showhash')}</summary>
                                    <p>{t('downloads.showhash1')} <a href="/downloads/hashes.txt">getmonero.org/downloads/hashes.txt</a> {t('downloads.showhash2')} <a href="https://github.com/monero-project/monero/blob/master/utils/gpg_keys/binaryfate.asc" target="_blank">{t('downloads.showhash3')}</a>.</p>
-                                   <p>{t('downloads.showhash4')} <a href={`/${lang}/resources/user-guides/verification-windows-beginner.html`}>{t('user-guides.verify-windows')}</a> - <a href={`/${lang}/resources/user-guides/verification-allos-advanced.html`}>{t('user-guides.verify-allos')}</a>.</p>
+                                   <p>{t('downloads.showhash4')} <a href={l('/resources/user-guides/verification-windows-beginner.html')}>{t('user-guides.verify-windows')}</a> - <a href={l('/resources/user-guides/verification-allos-advanced.html')}>{t('user-guides.verify-allos')}</a>.</p>
                                    <dl>
                                     {item.downloads.filter((entry) => entry.vers).map((entry) => (
                                       <dt><span class={entry.icon}></span>{entry.platform}</dt><dd class="hash">{entry.hash}</dd>
@@ -208,13 +209,13 @@ const t = await useTranslations(lang);
                             <div class="col-md-12 col-sm-12 col-xs-12">
                             <p>{t('downloads.packages')} <a href="https://github.com/monero-project/monero#installing-monero-from-a-package" target="_blank">{t('downloads.packages_link')}</a>.</p>
                             <h3>{t('downloads.antivirus')}</h3>
-                            <p>{t('downloads.avwarning')} <a href={`/${lang}/get-started/faq/#antivirus`}>{t('downloads.moreinfofaq')}</a>.</p>
+                            <p>{t('downloads.avwarning')} <a href={l('/get-started/faq/#antivirus')}>{t('downloads.moreinfofaq')}</a>.</p>
                             <h3>{t('downloads.verify')}</h3>
                             <p>{t('downloads.verify1')} <i>{t('downloads.verify2')}</i></p><br>
                               <details>
                                 <summary>{t('downloads.showhash')}</summary>
                                  <p>{t('downloads.showhash1')} <a href="/downloads/hashes.txt">getmonero.org/downloads/hashes.txt</a> {t('downloads.showhash2')} <a href="https://github.com/monero-project/monero/blob/master/utils/gpg_keys/binaryfate.asc" target="_blank">{t('downloads.showhash3')}</a>.</p>
-                                 <p>{t('downloads.showhash4')} <a href={`/${lang}/resources/user-guides/verification-windows-beginner.html">{t('user-guides.verify-windows')}</a> - <a href="{{site.baseurl}}/resources/user-guides/verification-allos-advanced.html`}>{t('user-guides.verify-allos')}</a>.</p>
+                                 <p>{t('downloads.showhash4')} <a href={l('/resources/user-guides/verification-windows-beginner.html')}>{t('user-guides.verify-windows')}</a> - <a href="/resources/user-guides/verification-allos-advanced.html">{t('user-guides.verify-allos')}</a>.</p>
                                   <dl>
                                   {item.downloads.filter((entry) => entry.vers).map((entry) => (
                                   <dt><span class={entry.icon}></span>{entry.platform}</dt><dd class="hash">{entry.hash}</dd>
@@ -323,7 +324,7 @@ const t = await useTranslations(lang);
                             <div class="col-md-12 col-sm-12 col-xs-12">
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <p>{t('downloads.blockchain1')} {t('downloads.blockchain2')} <a href={`/${lang}/resources/user-guides/importing_blockchain.html`}>{t('downloads.blockchain3')}</a> {t('downloads.blockchain4')}</p><br>
+                                <p>{t('downloads.blockchain1')} {t('downloads.blockchain2')} <a href={l('/resources/user-guides/importing_blockchain.html')}>{t('downloads.blockchain3')}</a> {t('downloads.blockchain4')}</p><br>
                                 <div class="center-xs"><a class="btn-link btn-auto btn-primary-top" href="https://downloads.getmonero.org/blockchain.raw">{t('downloads.blockchainbutton')}</a></div>
                             </div>
                         </div>

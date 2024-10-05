@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: faq.intro
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.faq",
     on_body: true, 
+    meta_descr: 'faq.intro'
 }}>
 
 <div class="container description">
@@ -97,9 +100,9 @@ const t = await useTranslations(lang)
                         <h2>{t('faq.resandhelp')}</h2>
                     </div>
                 </div>
-                <h3><a href="{{ site.baseurl }}/resources/user-guides/">{t('titles.userguides')}</a></h3>
+                <h3><a href={l('/resources/user-guides/')}>{t('titles.userguides')}</a></h3>
                     <p>{t('faq.userguides')}</p>
-                <h3><a href="{{ site.baseurl }}/resources/developer-guides/">{t('titles.developerguides')}</a></h3>
+                <h3><a href={l('/resources/developer-guides/')}>{t('titles.developerguides')}</a></h3>
                     <p>{t('faq.devguides')}</p>
                 <h3><a href="https://monero.stackexchange.com/">StackExchange</a></h3>
                     <p>{t('faq.stackexchange')}</p>
@@ -124,7 +127,7 @@ const t = await useTranslations(lang)
                 <div class="tab" id="anchor-word">
                     <h3><a class="anchor" href="#anchor-word"></a>{t('faq.qword')}</h3>
                     <div class="tab-answer">
-                        <p>{t('faq.aword')} <a href="{{ site.baseurl }}/resources/moneropedia/">Moneropedia</a>. {t('faq.aword1')}
+                        <p>{t('faq.aword')} <a href={l('/resources/moneropedia/')}>Moneropedia</a>. {t('faq.aword1')}
                         </p>
                     </div>
                 </div>
@@ -133,17 +136,17 @@ const t = await useTranslations(lang)
                     <div class="tab-answer">
                         <p>{t('faq.acontribute')}</p>
                         <p>{t('faq.acontribute1')} <a href="https://translate.getmonero.org">Weblate</a>.</p>
-                        <p>{t('faq.acontribute2')} <a href="{{ site.baseurl }}/community/hangouts/">Hangouts</a>.</p>
+                        <p>{t('faq.acontribute2')} <a href={l('/community/hangouts/')}>Hangouts</a>.</p>
                         <p>{t('faq.acontribute3')}</p>
                         <p>{t('faq.acontribute4')} <a href="https://www.monerooutreach.org/stories/getting-started-helping-monero.html">Getting started with Monero</a>.</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/get-started/contributing/">{t('titles.contributing')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/get-started/contributing/')}>{t('titles.contributing')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-buy">
                     <h3><a class="anchor" href="#anchor-buy"></a>{t('faq.q2')}</h3>
                     <div class="tab-answer">
                         <p>{t('faq.a2')}</p>
-                        <p>{t('faq.a2exchanges')} <a href="{{ site.baseurl }}/community/merchants/#exchanges">{t('titles.merchants')}</a>.</p>
+                        <p>{t('faq.a2exchanges')} <a href={l('/community/merchants/#exchanges')}>{t('titles.merchants')}</a>.</p>
                         <p>{t('faq.additional')} <a href="https://www.monerooutreach.org/how-to-buy-monero.html">How to Buy Monero (Monero Outreach)</a></p>
                     </div>
                 </div>
@@ -164,7 +167,7 @@ const t = await useTranslations(lang)
                     <div class="tab-answer">
                         <p>{t('faq.ahf')}</p>
                         <p>{t('faq.ahf1')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl_root }}/2020/09/01/note-scheduled-upgrades.html">A note on scheduled protocol upgrades</a></p>
+                        <p>{t('faq.additional')} <a href="/2020/09/01/note-scheduled-upgrades.html">A note on scheduled protocol upgrades</a></p>
                     </div>
                 </div>
                 <div class="tab" id="videos">
@@ -172,14 +175,14 @@ const t = await useTranslations(lang)
                     <div class="tab-answer">
                         <p>{t('faq.avideos')}</p>
                         <ol>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero_Promo.m4v">{t('faq.video_intro')}</a> ({t('faq.aavailable')} <a href="{{ site.baseurl_root }}/media/ru/Monero_Promo.m4v">Russian</a> {t('faq.and')} <a href="{{ site.baseurl_root }}/media/pt-br/Monero_Promo.m4v">Brazilian Portuguese</a>)</li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero%20-%20The%20Essentials.m4v">{t('faq.video_essentials')}</a></li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero%20-%20Stealth%20Addresses.m4v">{t('faq.video_sa')}</a> - {t('faq.mvideos')} @Stealth-Addresses</li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero%20-%20Ring%20Signatures.m4v">{t('faq.video_ringsig')}</a> - {t('faq.mvideos')} @Ring-Signatures</li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero%20-%20RingCT.m4v">{t('faq.video_ringct')}</a> - {t('faq.mvideos')} @RingCT</li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero_Tail_Emission_VOSTO_EMISIO.webm">{t('moneropedia.entries.tail-emission')}</a> - {t('faq.mvideos')} @Tail-Emission</li>
-                            <li><a href="{{ site.baseurl_root }}/media/Monero_Nodes_VOSTO_EMISIO.webm">{t('moneropedia.entries.node')}</a> - {t('faq.mvideos')} @Nodes</li>
-                            <li><a href="{{ site.baseurl_root }}/media/RandomX_VOSTO_EMISIO.webm">{t('moneropedia.entries.randomx')}</a> - {t('faq.mvideos')} @RandomX</li>
+                            <li><a href="/media/Monero_Promo.m4v">{t('faq.video_intro')}</a> ({t('faq.aavailable')} <a href="/media/ru/Monero_Promo.m4v">Russian</a> {t('faq.and')} <a href="/media/pt-br/Monero_Promo.m4v">Brazilian Portuguese</a>)</li>
+                            <li><a href="/media/Monero%20-%20The%20Essentials.m4v">{t('faq.video_essentials')}</a></li>
+                            <li><a href="/media/Monero%20-%20Stealth%20Addresses.m4v">{t('faq.video_sa')}</a> - {t('faq.mvideos')} @Stealth-Addresses</li>
+                            <li><a href="/media/Monero%20-%20Ring%20Signatures.m4v">{t('faq.video_ringsig')}</a> - {t('faq.mvideos')} @Ring-Signatures</li>
+                            <li><a href="/media/Monero%20-%20RingCT.m4v">{t('faq.video_ringct')}</a> - {t('faq.mvideos')} @RingCT</li>
+                            <li><a href="/media/Monero_Tail_Emission_VOSTO_EMISIO.webm">{t('moneropedia.entries.tail-emission')}</a> - {t('faq.mvideos')} @Tail-Emission</li>
+                            <li><a href="/media/Monero_Nodes_VOSTO_EMISIO.webm">{t('moneropedia.entries.node')}</a> - {t('faq.mvideos')} @Nodes</li>
+                            <li><a href="/media/RandomX_VOSTO_EMISIO.webm">{t('moneropedia.entries.randomx')}</a> - {t('faq.mvideos')} @RandomX</li>
                         </ol>
                     </div>
                 </div>
@@ -203,7 +206,7 @@ const t = await useTranslations(lang)
                     <h3><a class="anchor" href="#anchor-different"></a>{t('faq.q4')}</h3>
                     <div class="tab-answer" id="anchor-different">
                         <p>{t('faq.a4')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/resources/about/">{t('titles.about')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/resources/about/')}>{t('titles.about')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-magic">
@@ -242,7 +245,7 @@ const t = await useTranslations(lang)
                     <div class="tab-answer">
                         <p>{t('faq.aantivirus')}</p>
                         <p>{t('faq.aantivirus1')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/resources/user-guides/verification-windows-beginner.html">{t('user-guides.verify-windows')}</a>, <a href="{{ site.baseurl }}/resources/user-guides/verification-allos-advanced.html">{t('user-guides.verify-allos')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/resources/user-guides/verification-windows-beginner.html')}>{t('user-guides.verify-windows')}</a>, <a href={l('/resources/user-guides/verification-allos-advanced.html')}>{t('user-guides.verify-allos')}</a></p>
                     </div>
                 </div>
                 <div class="row center-xs">
@@ -267,7 +270,7 @@ const t = await useTranslations(lang)
                         <p>{t('faq.a12_1')}</p>
                         <p>{t('faq.a12_2')}</p>
                         <p>{t('faq.a12_3')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl_root }}/2020/01/17/auditability.html">About supply auditability</a></p>
+                        <p>{t('faq.additional')} <a href="/2020/01/17/auditability.html">About supply auditability</a></p>
                     </div>
                 </div>
                 <div class="tab" id="max-supply">
@@ -297,7 +300,7 @@ const t = await useTranslations(lang)
                     <h3><a class="anchor" href="#anchor-wallet"></a>{t('faq.qwallet')}</h3>
                     <div class="tab-answer">
                         <p>{t('faq.awallet')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/downloads">{t('titles.downloads')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/downloads')}>{t('titles.downloads')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-lost-funds">
@@ -332,14 +335,14 @@ const t = await useTranslations(lang)
                     <h3><a class="anchor" href="#import-blockchain"></a>{t('faq.qimporting')}</h3>
                     <div class="tab-answer">
                         <p>{t('faq.aimporting')}</p>
-                         <p>{t('faq.additional')} <a href="{{ site.baseurl }}/downloads/#blockchain">{t('downloads.blockchain')}</a></p>
+                         <p>{t('faq.additional')} <a href={l('/downloads/#blockchain')}>{t('downloads.blockchain')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-tor-node">
                     <h3><a class="anchor" href="#anchor-tor-node"></a>{t('faq.qnodetor')}</h3>
                     <div class="tab-answer">
                         <p>{t('faq.anodetor')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/resources/user-guides/tor_wallet.html">{t('user-guides.tor_wallet')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/resources/user-guides/tor_wallet.html')}>{t('user-guides.tor_wallet')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-full-pruned">
@@ -364,7 +367,7 @@ const t = await useTranslations(lang)
                     <h3><a class="anchor" href="#anchor-avoid-bc"></a>{t('faq.qavoidbc')}</h3>
                     <div class="tab-answer">
                         <p>{t('faq.aavoidbc')}</p>
-                        <p>{t('faq.additional')} <a href="{{ site.baseurl }}/resources/user-guides/remote_node_gui.html">{t('user-guides.remote-node-gui')}</a></p>
+                        <p>{t('faq.additional')} <a href={l('/resources/user-guides/remote_node_gui.html')}>{t('user-guides.remote-node-gui')}</a></p>
                     </div>
                 </div>
                 <div class="tab" id="anchor-danger-node">

@@ -31,3 +31,9 @@ export async function useTranslations(lang: string) {
         return translation;
     }
 }
+
+export function translatePath(lang: string) {
+    return (link: string) => {
+        return `/${lang}${link}`
+    }
+}

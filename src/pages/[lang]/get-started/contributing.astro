@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: meta_descr.contributing
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.contributing",
     on_body: true, 
+    meta_descr: 'meta_descr.contributing'
 }}>
 
 <div class="text-center container description">
@@ -36,7 +39,7 @@ const t = await useTranslations(lang)
                     <div class="row start-xs">
                         <h3>{t('contributing.full_node')}</h3>
                         <p>{t('contributing.full_node_p')}</p>
-                        <p>{t('contributing.full_node_p2')} <a href="{{ site.baseurl }}/resources/user-guides/vps_run_node.html">{t('user_guides.vps_node')}</a>, <a href="{{ site.baseurl }}/resources/user-guides/node-i2p-zero.html">{t('user_guides.node_i2pzero')}</a>, <a href="http://xmrguide25ibknxgaray5rqksrclddxqku3ggdcnzg4ogdi5qkdkd2yd.onion">{t('user_guides.tailsguide')}</a>. <a href="{{ site.baseurl }}/resources/user-guides/">{t('contributing.allguides')}</a></p>
+                        <p>{t('contributing.full_node_p2')} <a href={l('/resources/user-guides/vps_run_node.html')}>{t('user_guides.vps_node')}</a>, <a href={l('/resources/user-guides/node-i2p-zero.html')}>{t('user_guides.node_i2pzero')}</a>, <a href="http://xmrguide25ibknxgaray5rqksrclddxqku3ggdcnzg4ogdi5qkdkd2yd.onion">{t('user_guides.tailsguide')}</a>. <a href={l('/resources/user-guides/')}>{t('contributing.allguides')}</a></p>
                         <h3>{t('contributing.develop')}</h3>
                         <p>{t('contributing.developp')}</p>
                             <ul class="logo">
@@ -45,9 +48,9 @@ const t = await useTranslations(lang)
                                 <li><a href="https://github.com/monero-project/monero-site">{t('contributing.website')}</a> {t('contributing.website_p')}</li>
                                 <li>{t('contributing.bug')} <a href="https://github.com/monero-project/meta/blob/master/VULNERABILITY_RESPONSE_PROCESS.md">{t('contributing.discl')}</a></li>
                             </ul>
-                        <p>{t('contributing.develop_descr')} <a href="{{ site.baseurl }}/community/workgroups/">{t('contributing.develop_wg')}</a></p>
+                        <p>{t('contributing.develop_descr')} <a href={l('/community/workgroups/')}>{t('contributing.develop_wg')}</a></p>
                         <h3>{t('contributing.mine')}</h3>
-                        <p>{t('contributing.mine_p')} <a href="{{ site.baseurl }}/get-started/mining/">{t('contributing.mine_link')}</a></p>
+                        <p>{t('contributing.mine_p')} <a href={l('/get-started/mining/')}>{t('contributing.mine_link')}</a></p>
                     </div>
                 </div>
             </div>
@@ -112,7 +115,7 @@ const t = await useTranslations(lang)
                     <div class="row start-xs">
                         <div class="col-xs-12">
                             <h3>{t('contributing.sponsor')}</h3>
-                            <p>{t('contributing.sponsor_p')} <a href="{{ site.baseurl }}/community/sponsorships/">{t('contributing.sponsor_link')}</a> {t('contributing.sponsor_p2')}</p>
+                            <p>{t('contributing.sponsor_p')} <a href={l('/community/sponsorships/')}>{t('contributing.sponsor_link')}</a> {t('contributing.sponsor_p2')}</p>
                         </div>
                     </div>
                 </div>

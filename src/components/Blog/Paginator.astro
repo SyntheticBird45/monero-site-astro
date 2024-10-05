@@ -1,4 +1,6 @@
 ---
+import { translatePath } from '@i18n';
+
 interface Props {
     /* Total number of pages */
     total: number
@@ -8,6 +10,7 @@ interface Props {
 
 const { lang } = Astro.params;
 const { total, page } = Astro.props;
+const l = translatePath(lang!);
 ---
 
 <div class="page-numbers"><p>        
@@ -16,9 +19,9 @@ const { total, page } = Astro.props;
             if(p==page) {
                 return <em>{p}</em>
             } else if(p == 1) {
-                return <a href={`/${lang}/blog/`}>{p}</a>
+                return <a href={l('/blog/')}>{p}</a>
             } else {
-                return <a href={`/${lang}/blog/page/${p}`}>{p}</a>
+                return <a href={l('/blog/page/${p}')}>{p}</a>
             }
         })
     }

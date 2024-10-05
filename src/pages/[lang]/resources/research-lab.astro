@@ -1,6 +1,7 @@
 ---
+import { langs, useTranslations, translatePath } from "@i18n";
+
 import Base from "@layouts/Base.astro";
-import { langs, useTranslations } from "@i18n";
 
 // Exporting static path for each available languages
 export async function getStaticPaths() {
@@ -9,14 +10,16 @@ export async function getStaticPaths() {
     });
 }
 
+// i18n
 const { lang } = Astro.params;
-const t = await useTranslations(lang)
-// meta_descr: meta_descr.mrl
+const t = await useTranslations(lang);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 
     title: "titles.researchlab",
-    on_body: true, 
+    on_body: true,
+    meta_descr: 'meta_descr.mrl' 
 }}>
 
 <div class="container description">
@@ -67,7 +70,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl10_abstract')}</p>
                         <div class="center-xs">
-                           <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0010.pdf">{t('research_lab.read_paper')}</a></p>
+                           <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0010.pdf">{t('research_lab.read_paper')}</a></p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +80,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl9_abstract')}</p>
                         <div class="center-xs">
-                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0009.pdf">{t('research_lab.read_paper')}</a></p>
+                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0009.pdf">{t('research_lab.read_paper')}</a></p>
                         </div>
                     </div>
                 </div>
@@ -87,7 +90,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl8_abstract')}</p>
                         <div class="center-xs">
-                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0008.pdf">{t('research_lab.read_paper')}</a></p>
+                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0008.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -97,7 +100,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl7_abstract')}</p>
                         <div class="center-xs">
-                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0007.pdf">{t('research_lab.read_paper')}</a></p>
+                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0007.pdf">{t('research_lab.read_paper')}</a></p>
                         </div>
                     </div>
                 </div>
@@ -107,7 +110,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl6_abstract')}</p>
                         <div class="center-xs">
-                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0006.pdf">{t('research_lab.read_paper')}</a></p>
+                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0006.pdf">{t('research_lab.read_paper')}</a></p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +120,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl5_abstract')}</p>
                         <div class="center-xs">
-                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0005.pdf">{t('research_lab.read_paper')}</a></p>
+                            <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0005.pdf">{t('research_lab.read_paper')}</a></p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +130,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl4_abstract')}</p>
                             <div class="center-xs">
-                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0004.pdf">{t('research_lab.read_paper')}</a></p>
+                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0004.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -137,7 +140,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl3_abstract')}</p>
                             <div class="center-xs">
-                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0003.pdf">{t('research_lab.read_paper')}</a></p>
+                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0003.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -147,7 +150,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl2_abstract')}</p>
                             <div class="center-xs">
-                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0002.pdf">{t('research_lab.read_paper')}</a></p>
+                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0002.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -157,7 +160,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.abstract')}:</strong> {t('research_lab.mrl1_abstract')}</p>
                             <div class="center-xs">
-                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/MRL-0001.pdf">{t('research_lab.read_paper')}</a></p>
+                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/MRL-0001.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -167,7 +170,7 @@ const t = await useTranslations(lang)
                     <div class="tab-content">
                         <p><strong>{t('research_lab.summary')}:</strong> {t('research_lab.mrlhtp_summary')}</p>
                             <div class="center-xs">
-                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="{{site.baseurl}}/resources/research_lab/pubs/ge_fromfe.pdf">{t('research_lab.read_paper')}</a></p>
+                                <p><a class="btn-link btn-auto btn-primary" target="_blank" rel="noreferrer noopener" href="/resources/research_lab/pubs/ge_fromfe.pdf">{t('research_lab.read_paper')}</a></p>
                             </div>
                     </div>
                 </div>
@@ -184,7 +187,7 @@ const t = await useTranslations(lang)
                             <div>
                                 <p>{t('research_lab.libraryp')}</p><br>
                                 <div class="center-xs">
-                                    <a class="btn-link btn-auto btn-primary" href="{{ site.baseurl }}/library/">{t('research_lab.librarybutton')}</a>
+                                    <a class="btn-link btn-auto btn-primary" href={l('/library/')}>{t('research_lab.librarybutton')}</a>
                                 </div>
                             </div>
                         </div>
@@ -195,15 +198,15 @@ const t = await useTranslations(lang)
                         <div class="col">
                             <h2>{t('research_lab.cryptonote')}</h2>
                             <div class="whitepaper">
-                                <a href="{{ site.baseurl }}/resources/research_lab/pubs/cryptonote-whitepaper.pdf">{t('research_lab.cryptonote-whitepaper')}</a>
+                                <a href={l('/resources/research_lab/pubs/cryptonote-whitepaper.pdf')}>{t('research_lab.cryptonote-whitepaper')}</a>
                                 <p>{t('research_lab.cryptonote-whitepaper_para')}</p>
                             </div>
                             <div class="whitepaper">
-                                <a href="{{site.baseurl}}/resources/research_lab/pubs/whitepaper_annotated.pdf">{t('research_lab.annotated')}</a>
+                                <a href="/resources/research_lab/pubs/whitepaper_annotated.pdf">{t('research_lab.annotated')}</a>
                                 <p>{t('research_lab.annotated_para')}</p>
                             </div>
                             <div class="whitepaper">
-                                <a href="{{site.baseurl}}/resources/research_lab/pubs/whitepaper_review.pdf">{t('research_lab.brandon')}</a>
+                                <a href="/resources/research_lab/pubs/whitepaper_review.pdf">{t('research_lab.brandon')}</a>
                                 <p>{t('research_lab.brandon_para')}</p>
                             </div>
                         </div>

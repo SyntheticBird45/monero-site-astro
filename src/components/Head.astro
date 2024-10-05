@@ -1,6 +1,8 @@
 ---
 import { useTranslations } from "src/i18n/utils";
+import { getCollection } from "astro:content";
 import { type HeaderProps as Props } from '@layouts/header';
+import { getEntry } from "astro:content";
 
 /* Collect properties here */
 const { header } = Astro.props;
@@ -12,21 +14,69 @@ const t = await useTranslations(lang ? lang : 'en');
 
 /* Header title branching */
 function title() {
-    if(header.entry) {
-        return `${t(`page.entry`)} | ${t(`global.wiki`)} | ${t(`page.index.page_title`)}`
-    }
-    else if(tag) {
+    /* If this is a blog tag search display the tag */
+    if(tag) {
         return `${t(`global.tags`)}: ${tag} | ${t(`page.index.page_title`)}`
     }
+    /* If there is a provided title then use this one */
     else if(header.title) {
         if(header.title.includes('titles.')) {
             return `${t(header.title)} | ${t('index.page_title')}`
         } else {
             return `${header.title} | ${t('index.page_title')}`
         }
-    } else {
+    } 
+    /* Otherwise use generic one */
+    else {
         return `${t(`index.page_title`)}`
     }
+}
+
+/* Meta title */
+async function og_title(): Promise<string> {
+    const { slug } = Astro.params;
+    /* If the page is a blog post then return the title */
+    if(slug) {
+        const post = await getEntry('blog', slug)
+        if(post && post.data) {
+            return post.data.title
+        }
+    }
+    /* Else if a specific meta title has been provided, translate it */
+    if(header.title) {
+        return t(header.title)
+    }
+    /* Else just generic description */
+    return t('global.titlemeta')
+}
+
+/* Meta image */
+function og_image(): string {
+    /* If a dedicated image that is not an svg has been provided then return this image */
+    if(header.image && !header.image.includes(".svg") && !header.image.includes(".SVG")) {
+        return header.image
+    /* Otherwise use generic one */
+    } else {
+        return "/press-kit/symbols/monero-symbol-on-white-480.png"
+    }
+}
+
+/* Meta description */
+async function og_description(): Promise<string> {
+    const { slug } = Astro.params;
+    /* If the page is a blog post with a summary then return the summary */
+    if(slug) {
+        const post = await getEntry('blog', slug)
+        if(post && post.data && post.data.summary) {
+            return post.data.summary
+        }
+    }
+    /* Else if a specific meta description has been provided, translate it */
+    if(header.meta_descr) {
+        return t(header.meta_descr)
+    }
+    /* Else just generic description */
+    return t('global.titlemeta')
 }
 ---
 <head>
@@ -39,17 +89,20 @@ function title() {
     </title>
     
     <!-- og:title -->
+    <meta property="og:title" content={await og_title()} />
     
     <!-- og:description -->
+    <meta property="og:description" content={await og_description()} />
     
     <meta name="keywords" content={header.keywords}>
     
     <!-- og:image -->
+    <meta property="og:image" content={og_image()} />
     
-    <meta property="og:site_name" content="{% t global.sitename %}">
-    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:site_name" content={""}>
+    <meta property="og:url" content={""}>
     <meta property="og:type" content="website">
-    <meta http-equiv="onion-location" content="{% include onion.html %}" />
+    <meta http-equiv="onion-location" content={""} />
     
     <!-- other meta --->
     

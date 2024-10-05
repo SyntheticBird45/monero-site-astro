@@ -7,7 +7,7 @@ const { post, latest, tags } = Astro.props;
 const data = post.data;
 
 const t = await useTranslations(lang ? lang : 'en');
-const l = translatePath(lang!);
+const l = translatePath(lang);
 ---
 
 <Base header={{ 

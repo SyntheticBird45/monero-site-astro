@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import { sortByPopularity } from '@content/config';
+
+// Path for every blog tags
+export async function getStaticPaths() {
+    
+    const blogPosts = await getCollection('blog');
+    
+    // Collect all tags
+    var collectedTags: string[] = [];
+    blogPosts.forEach((entry) => {
+        const tags = entry.data.tag? [entry.data.tag] : entry.data.tags!;
+        tags.forEach((tag: string) => {
+            collectedTags.push(tag)
+        })
+    });
+    const allTags = sortByPopularity(collectedTags);
+    
+    // Generate static paths
+    return allTags.map((tag) => {
+        
+        // Create a static route for each tags
+        return { params: { tag } }
+    });
+}
+
+const { tag } = Astro.params;
+---
+
+<meta http-equiv="refresh" content={`0;url=/en/blog/tags/${tag}`} />

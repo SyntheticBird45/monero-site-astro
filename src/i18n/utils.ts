@@ -1,9 +1,9 @@
 import { defaultLang, langs } from './ui';
 
-export async function useTranslations(lang: string) {
-    // @ts-ignore
-    const translations = langs[lang].translations;
+export async function useTranslations(lang?: string) {
     const defaultTranslations = langs['en'].translations;
+    // @ts-ignore
+    const translations = lang? langs[lang].translations : defaultTranslations;
     
     return function t(key: string) {
         const keys = key.split('.');
@@ -32,8 +32,8 @@ export async function useTranslations(lang: string) {
     }
 }
 
-export function translatePath(lang: string) {
+export function translatePath(lang: string | undefined) {
     return (link: string) => {
-        return `/${lang}${link}`
+        return lang? `/${lang}${link}`: link
     }
 }

@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import { chunkArray } from '@content/utils';
+
+// Exporting static path for each available languages
+export async function getStaticPaths() {
+    
+    // Collect all blog post sorted by date and make chunks of 10
+    const allBlogPosts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    const chunkedBlogPosts = chunkArray(allBlogPosts, 10);
+    
+    return chunkedBlogPosts.map((value, index) => {
+        return { params: { page: index } };
+    })
+}
+
+const { page } = Astro.params;
+---
+
+<meta http-equiv="refresh" content={`0;url=/en/blog/page/${page}`} />

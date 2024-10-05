@@ -6,7 +6,7 @@ const { lang } = Astro.params;
 const { latest, tags } = Astro.props;
 
 const t = await useTranslations(lang ? lang : 'en');
-const l = translatePath(lang!);
+const l = translatePath(lang);
 ---
 
 <div class="site-wrap"> 

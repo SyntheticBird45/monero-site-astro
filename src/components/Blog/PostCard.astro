@@ -11,7 +11,7 @@ const t = await useTranslations(lang!);
 const l = translatePath(lang!);
 ---
 <div class="post-lead">
-    <h3><a href={l('/blog/post/${slug}')}>{post.title}</a></h3>
+    <h3><a href={l(`/blog/post/${slug}`)}>{post.title}</a></h3>
     <p>
         {post.summary}
     </p>
@@ -22,12 +22,12 @@ const l = translatePath(lang!);
             {
                 tags.slice(0, -1).map((tag) => (
                     <>
-                        <a href={l('/blog/tags/${tag}')}>{tag}</a>,
+                        <a href={l(`/blog/tags/${tag}`)}>{tag}</a>,
                     </>
                 ))
             }
             {
-                tags.at(-1)? <a href={l('/blog/tags/${tags.at(-1)}')}>{tags.at(-1)}</a> : <></>
+                tags.at(-1)? <a href={l(`/blog/tags/${tags.at(-1)}`)}>{tags.at(-1)}</a> : <></>
             }
         </small>
     </p>

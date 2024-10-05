@@ -3,7 +3,7 @@
 import { langs, useTranslations, translatePath } from "@i18n";
 
 const page = { ...Astro.params, ...Astro.props };
-const lang = page.lang;
+const lang = page.lang? page.lang : 'en';
 const t = await useTranslations(page.lang ? page.lang : 'en');
 const l = translatePath(lang);
 

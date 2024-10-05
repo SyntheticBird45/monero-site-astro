@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+
+// Path for every blog post
+export async function getStaticPaths() {
+    
+    const blogPosts = await getCollection('blog');
+    
+    return blogPosts.map((post) => {
+        
+        // Create a static route for each posts
+        return { params: { slug: post.slug } }
+    });
+}
+
+const { slug } = Astro.params;
+---
+
+<meta http-equiv="refresh" content={`0;url=/en/blog/post/${slug}`} />

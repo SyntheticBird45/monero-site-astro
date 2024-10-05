@@ -19,9 +19,9 @@ const l = translatePath(lang!);
             if(p==page) {
                 return <em>{p}</em>
             } else if(p == 1) {
-                return <a href={l('/blog/')}>{p}</a>
+                return <a href={l(`/blog/`)}>{p}</a>
             } else {
-                return <a href={l('/blog/page/${p}')}>{p}</a>
+                return <a href={l(`/blog/page/${p}`)}>{p}</a>
             }
         })
     }

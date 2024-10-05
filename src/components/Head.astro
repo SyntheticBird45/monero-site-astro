@@ -99,10 +99,10 @@ async function og_description(): Promise<string> {
     <!-- og:image -->
     <meta property="og:image" content={og_image()} />
     
-    <meta property="og:site_name" content={""}>
-    <meta property="og:url" content={""}>
+    <meta property="og:site_name" content={`getmonero.org`}>
+    <meta property="og:url" content={`https://${Astro.url.host}${Astro.url.pathname}`}>
     <meta property="og:type" content="website">
-    <meta http-equiv="onion-location" content={""} />
+    <meta http-equiv="onion-location" content={`http://monerotoruzizulg5ttgat2emf4d6fbmiea25detrmmy7erypseyteyd.onion${Astro.url.pathname}`} />
     
     <!-- other meta --->
     

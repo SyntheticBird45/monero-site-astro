@@ -13,7 +13,7 @@ const { total, page } = Astro.props;
 const l = translatePath(lang!);
 ---
 
-<div class="page-numbers"><p>        
+<div class="paginator">     
     {
         Array.from({length: total-1}, (_, i) => i + 1).map(p => {
             if(p==page) {
@@ -25,4 +25,23 @@ const l = translatePath(lang!);
             }
         })
     }
-</p></div>
+</div>
+
+<style>
+    .paginator {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        width: 100%;
+        padding-left: 4%;
+        padding-right: 4%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .paginator a {
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
+        border-bottom: 2px dotted #a1aabb;
+    }
+</style>

@@ -53,10 +53,10 @@ const l = translatePath(lang);
                         <PostCard {...post}></PostCard>
                     ))}
                 </div>
+                
+                <!-- Paginator -->
+                <Paginator page={1} total={total}/>
             </div>
-            
-            <!-- Paginator -->
-            <Paginator page={1} total={total}/>
             
         </section>
         <a href="#" class="arrow-up" aria-label={t('accessibility.arrowup')} title={t('accessibility.gotop')}><i></i></a>

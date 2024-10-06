@@ -61,9 +61,10 @@ const t = await useTranslations(lang);
                         <PostCard {...post}></PostCard>
                     ))}
                 </div>
+                
+                <!-- Paginator -->
+                <Paginator page={page} total={total}/>
             </div>
-            <!-- Paginator -->
-            <Paginator page={page} total={total}/>
         </section>
         <a href="#" class="arrow-up" aria-label={t('accessibility.arrowup')} title={t('accessibility.gotop')}><i></i></a>
     </div>
